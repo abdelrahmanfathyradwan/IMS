@@ -44,6 +44,15 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/export', exportRoutes);
 app.use('/api/settings', settingsRoutes);
 
+// Root endpoint
+app.get('/', (req, res) => {
+    res.json({
+        success: true,
+        message: 'IMS API is running. Access endpoints via /api',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({
