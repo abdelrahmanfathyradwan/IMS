@@ -1,6 +1,17 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const getBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || '';
+    // If no env var, use current origin + /api (for production/proxy)
+    if (!url) return '/api';
+    // If env var exists, ensure it doesn't end with slash
+    if (url.endsWith('/')) url = url.slice(0, -1);
+    // Ensure it ends with /api
+    if (!url.endsWith('/api')) url += '/api';
+    return url;
+};
+
+const API_URL = getBaseUrl();
 
 const api = axios.create({
     baseURL: API_URL,
